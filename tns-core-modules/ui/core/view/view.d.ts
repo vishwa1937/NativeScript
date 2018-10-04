@@ -668,7 +668,7 @@ export abstract class View extends ViewBase {
     /**
      * @private
      */
-    _onLivesync(): boolean;
+    _onLivesync(file?: string): boolean;
     /**
      * @private
      */

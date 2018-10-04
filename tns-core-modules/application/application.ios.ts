@@ -150,7 +150,7 @@ class IOSApplication implements IOSApplicationDefinition {
             this.setWindowContent(args.root);
         } else {
             this._window = UIApplication.sharedApplication.delegate.window;
-        }   
+        }
     }
 
     @profile
@@ -214,9 +214,9 @@ class IOSApplication implements IOSApplicationDefinition {
         }
     }
 
-    public _onLivesync(): void {
+    public _onLivesync(file?: string): void {
         // If view can't handle livesync set window controller.
-        if (!this._rootView._onLivesync()) {
+        if (!this._rootView._onLivesync(file)) {
             this.setWindowContent();
         }
     }
@@ -251,8 +251,8 @@ exports.ios = iosApp;
 setApplication(iosApp);
 
 // attach on global, so it can be overwritten in NativeScript Angular
-(<any>global).__onLiveSyncCore = function () {
-    iosApp._onLivesync();
+(<any>global).__onLiveSyncCore = function __onLiveSyncCore(file?: string) {
+    iosApp._onLivesync(file);
 }
 
 let mainEntry: NavigationEntry;
@@ -351,10 +351,10 @@ function getViewController(view: View): UIViewController {
     throw new Error("Root should be either UIViewController or UIView");
 }
 
-global.__onLiveSync = function () {
+global.__onLiveSync = function __onLiveSync(file?: string) {
     if (!started) {
         return;
     }
 
-    livesync();
+    livesync(file);
 }

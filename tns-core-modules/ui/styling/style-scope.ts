@@ -307,7 +307,7 @@ function onLiveSync(args: applicationCommon.CssChangedEventData): void {
     loadCss(applicationCommon.getCssFileName());
 }
 
-const loadCss = profile(`"style-scope".loadCss`, (cssFile: string) => {
+export const loadCss = profile(`"style-scope".loadCss`, (cssFile: string) => {
     if (!cssFile) {
         return undefined;
     }

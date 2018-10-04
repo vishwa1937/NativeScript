@@ -20,7 +20,7 @@ import {
 } from "../../gestures";
 
 import { createViewFromEntry } from "../../builder";
-import { StyleScope } from "../../styling/style-scope";
+import { StyleScope, loadCss } from "../../styling/style-scope";
 import { LinearGradient } from "../../styling/linear-gradient";
 
 export * from "../../styling/style-properties";
@@ -200,10 +200,16 @@ export abstract class ViewCommon extends ViewBase implements ViewDefinition {
         }
     }
 
-    _onLivesync(): boolean {
-        _rootModalViews.forEach(v => v.closeModal());
-        _rootModalViews.length = 0;
-        return false;
+    _onLivesync(file?: string): boolean {
+        if (file) {
+            loadCss(file);
+            this._onCssStateChange();
+            return true;
+        } else {
+            _rootModalViews.forEach(v => v.closeModal());
+            _rootModalViews.length = 0;
+            return false;
+        }
     }
 
     public onBackPressed(): boolean {

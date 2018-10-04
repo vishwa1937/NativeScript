@@ -528,8 +528,8 @@ export class FrameBase extends CustomLayoutView implements FrameDefinition {
         return result;
     }
 
-    public _onLivesync(): boolean {
-        super._onLivesync();
+    public _onLivesync(file?: string): boolean {
+        super._onLivesync(file);
 
         if (!this._currentEntry || !this._currentEntry.entry) {
             return false;
